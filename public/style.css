@@ -1,0 +1,204 @@
+
+:root,
+:root[data-theme="dark"]{
+  --frame-width: 860px;
+  --sidebar-w: 260px;
+  --gap: 16px;
+
+  /* Dark theme (default) */
+  --bg: #0b0b10;
+  --ink: #e7edf6;
+  --muted: #aeb9c8;
+  --link: #9cc1ff;
+  --panel: #151922;
+  --panel-strong: #1b2030;
+  --border: #2a3446;
+
+  /* Lighter shadow in dark mode (subtle) */
+  --shadow-3d: #222833;
+
+  /* Type & spacing */
+  --logo-size: clamp(28px, 4vw, 56px); /* smaller so “g” won’t clip */
+  --text: 14px;
+  --sidebar-gap: 10px;
+}
+
+/* Light theme */
+:root[data-theme="light"]{
+  --bg: #d9d9d9;
+  --ink: #111111;
+  --muted: #333333;
+  --link: #0000ee;
+  --panel: #efefef;
+  --panel-strong: #f7f7f7;
+  --border: #7a7a7a;
+
+  /* Darker shadow in light mode (stronger contrast) */
+  --shadow-3d: #3a3a3a;
+}
+
+/* Beige theme inspired by micr.dev/microkeebs */
+:root[data-theme="beige"]{
+  --bg: #b9b39f;            /* page background */
+  --ink: #1b1b1b;           /* main text */
+  --muted: #3a3a32;
+  --link: #111111;
+  --panel: #b2ac98;         /* boxes */
+  --panel-strong: #bdb7a3;  /* header/tabs */
+  --border: #8a8573;
+  --shadow-3d: #6d6759;     /* darker 3D for light-like scheme */
+}
+
+*{ box-sizing:border-box; }
+html{ font-size: var(--text); }
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.6;
+}
+a{ color: var(--link); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+
+/* ===== Header ===== */
+.header{
+  width: min(var(--frame-width), 94vw);
+  margin: 16px auto var(--gap) auto;
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  box-shadow: 6px 6px 0 0 var(--shadow-3d);
+}
+
+/* Top row: big logo + right image panel (no 3D on image panel) */
+.header-top{
+  display: grid;
+  grid-template-columns: 1fr 220px;   /* title | image */
+  gap: var(--gap);
+  padding: 14px;
+  align-items: center;                /* was: end */
+}
+
+.header-title{
+  font-weight: 800;
+  font-size: var(--logo-size);
+  line-height: 1.15;                  /* more room for descenders */
+  white-space: nowrap;                /* keep on one line */
+
+  /* FIX: allow descenders to draw past the box and add breathing room */
+  overflow: visible;                  /* was: hidden */
+  text-overflow: clip;                /* was: ellipsis */
+
+  /* Centering inside the left grid cell */
+  justify-self: center;               /* horizontal center of the cell */
+  align-self: center;                 /* vertical center of the cell */
+  text-align: center;
+
+  /* A little cushion above the tab divider line */
+  padding-bottom: 6px;
+}
+.header-image{
+  justify-self:end;
+  background: var(--panel-strong);
+  border: none;
+  box-shadow: none;
+  max-width: 220px;
+  min-height: 72px;
+  display:flex; align-items:center; justify-content:center;
+  color: var(--muted);
+  padding: 6px 10px;
+}
+.header-image img{ display:block; max-width:100%; max-height:84px; height:auto; width:auto; object-fit:contain; }
+
+/* Tabs row: flush to edges, own divider line, like kafu */
+.tabbar{
+  display:flex; gap:0; padding:0; margin:0;
+  border-top: 1px solid var(--border); /* the divider under the logo row */
+}
+.tab{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding: 8px 14px; height: 36px; font-weight: 800;
+  color: var(--ink); background: transparent;
+  border-right: 1px solid var(--border);
+  cursor: pointer; white-space: nowrap; user-select: none;
+}
+.tab:last-child{ border-right: none; }
+.tab:hover{ background:#000; color:#fff; }
+.tab.active{ background:#000; color:#fff; }
+
+/* ===== Page frame: content left, sidebar right ===== */
+.frame{
+  width: min(var(--frame-width), 94vw);
+  margin: 0 auto 56px auto;
+  display: grid;
+  grid-template-columns: 1fr var(--sidebar-w);
+  gap: var(--gap);
+}
+
+/* ===== Boxes with title strip & divider ===== */
+.box{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 6px 6px 0 0 var(--shadow-3d);
+}
+.boxtitle{ padding: 10px 12px; font-weight: 800; }
+.divide{ border-top: 1px solid var(--border); }
+.boxbody{ padding: 14px 16px; }
+
+.content{ display: grid; gap: var(--gap); }
+
+/* Sidebar: compact vertical spacing; centered content; no shadow overlap */
+.sidebar{ display:grid; gap: var(--sidebar-gap); }
+.sidebar .boxtitle{ padding: 8px 10px; text-align:left; }
+.sidebar .boxbody{ padding: 10px 12px; }
+.side-links{
+  list-style: none; margin: 0; padding: 0;
+  display:grid; grid-template-columns: 1fr 1fr; gap: 8px 14px;
+}
+.clock{
+  font-variant-numeric: tabular-nums; font-weight: 800; font-size: 16px;
+  display:flex; align-items:center; justify-content:center;
+}
+.theme-select{ width:100%; padding:6px 8px; border:1px solid var(--border); background: var(--panel-strong); color: var(--ink); }
+
+/* ===== BLOG layout (independent content scrolling) ===== */
+
+/* Blog page top-aligned with large top gap */
+body.blog-top .blog-wrap{
+  margin-top: 64px;   /* adjust this gap size as you like */
+}
+
+
+
+
+body.no-window-scroll{ overflow: hidden; }  /* lock the window */
+.blog-wrap{
+  width: min(var(--frame-width), 94vw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 300px 1fr; /* left box | right posts */
+  gap: var(--gap);
+  height: calc(100vh - 24px);
+  
+}
+.blog-left{ position: sticky; top: 0; align-self: start; height: fit-content; }
+.blog-right{ height: 100%; overflow: auto; padding-right: 2px; }
+.post{ background: var(--panel); border:1px solid var(--border); box-shadow: 6px 6px 0 0 var(--shadow-3d); margin-bottom: var(--gap); }
+.post .post-head{ display:flex; justify-content:space-between; align-items:center; background: var(--panel-strong); padding: 8px 10px; border-bottom:1px solid var(--border); font-weight:800; }
+.post .post-body{ padding: 10px 12px; }
+.post .more{ text-align:right; font-weight:700; padding: 0 10px 8px; }
+.backbtn{ display:inline-block; background:#000; color:#fff; padding:4px 8px; border:1px solid var(--border); text-decoration:none; }
+
+
+/* Center header + page frame vertically on simple pages */
+body.page-center{
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Ensure main frame doesn't add extra large bottom gap when centered */
+body.page-center .frame{ margin-top: 0; margin-bottom: 0; }
+
+/* About page: no header, compact height equal to content of left bar */
+body.about-compact .blog-wrap{ height: auto; }
+body.about-compact .blog-right{ height: auto; overflow: visible; }
