@@ -1,13 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body class="page-center">
+---
+layout: 'base.njk'
+title: 9712 — Home
+bodyClass: "page-center-home"
+---
+
+<div class="frame">
+  <!-- your existing index content -->
+</div>
 
   <header class="header">
     <div class="header-top">
@@ -19,8 +18,8 @@
     </div>
     <nav class="tabbar">
       <!-- No "net" tab per your request -->
-      <div class="tab" data-link="blog.html">blog</div>
-      <div class="tab" data-link="about.html">about</div>
+     <a class="tab" href="{{ '/blog/' | url }}">blog</a>
+     <a class="tab" href="{{ '/about/' | url }}">about</a>
       <div class="tab" data-link="index.html">home</div>
     </nav>
   </header>
@@ -86,7 +85,3 @@
     </aside>
   </div>
 
-<script src="javascript/site.js"></script>
-
-</body>
-</html>

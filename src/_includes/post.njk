@@ -1,0 +1,16 @@
+   
+   
+   <main class="blog-right">
+
+<article class="post">
+  <div class="post-head">
+    <div>{{ title }}</div>
+    <div>| {{ date | date("d LLL yyyy") }}</div>
+  </div>
+  <div class="post-body">
+    {{ excerpt | safe }}
+  </div>
+  <div class="more"><a href="{{ url }}">read more →</a></div>
+</article>
+
+      </main>

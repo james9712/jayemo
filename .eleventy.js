@@ -16,17 +16,19 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
-  eleventyConfig.addPassthroughCopy('./src/style.css');
-  eleventyConfig.addPassthroughCopy('./src/about.html')
-  eleventyConfig.addPassthroughCopy('./src/blog.html')
-  eleventyConfig.addPassthroughCopy('./src/not_found.html')
-  eleventyConfig.addPassthroughCopy('./src/assets')
-  eleventyConfig.addPassthroughCopy('./src/javascript/site.js')
+  eleventyConfig.addPassthroughCopy({ "src/style.css": "style.css" });
+  eleventyConfig.addPassthroughCopy({ "src/javascript": "javascript" });
+  eleventyConfig.addPassthroughCopy({ "src/images": "images" });
+  eleventyConfig.addPassthroughCopy({ "src/other files": "other files" });
+
+  // Optional: live reload when these change
+  eleventyConfig.addWatchTarget("src/style.css");
+  eleventyConfig.addWatchTarget("src/javascript");
 
   return {
-    dir: {
-      input: "src",
-      output: "public"
-    }
+    dir: { input: "src", includes: "_includes", output: "public" },
+    markdownTemplateEngine: "njk",
+    htmlTemplateEngine: "njk",
+    templateFormats: ["njk", "md", "html"]
   };
 };
