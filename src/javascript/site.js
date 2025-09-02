@@ -17,14 +17,16 @@
     el.addEventListener('click', ()=>{ const l=el.getAttribute('data-link'); if(l) location.href=l; });
   });
 
-  // Sydney clock (Australia/Sydney), handles DST automatically
-  const clock = document.getElementById('clockSydney');
-  if(clock){
-    const fmt = new Intl.DateTimeFormat('en-AU', {
-      timeZone: 'Australia/Sydney',
-      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+ function startClock(id, tz) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var fmt = new Intl.DateTimeFormat([], {
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false, timeZone: tz
     });
-    const tick = ()=> clock.textContent = fmt.format(new Date());
+    function tick() { el.textContent = fmt.format(new Date()); }
     tick(); setInterval(tick, 1000);
   }
+  startClock('clockSydney', 'Australia/Sydney');
+  
 })();
