@@ -108,6 +108,45 @@ a:hover{ text-decoration: underline; }
 }
 .header-image img{ display:block; max-width:100%; max-height:84px; height:auto; width:auto; object-fit:contain; }
 
+/* ===== Single blog post page ===== */
+.post-wrap{
+  width: min(var(--frame-width), 94vw);
+  margin: 16px auto;
+}
+
+/* Reuse the site's 3D box, but with a black title strip */
+.box .boxtitle.black{
+  background: #000;
+  color: #fff;
+}
+
+/* Big article title look (like your screenshot) */
+.post-title{
+  font-weight: 800;
+  font-size: clamp(22px, 4vw, 36px);
+  line-height: 1.15;
+  margin: 8px 12px 4px 12px;
+}
+
+/* Optional small subtitle line above the big title */
+.post-subhead{
+  font-weight: 800;
+  margin: 12px 12px 0 12px;
+}
+
+/* Article body text inside the box */
+.post-body{
+  padding: 8px 12px 14px 12px;
+}
+
+/* Tiny “return to index” link area */
+.post-topbar{
+  width: min(var(--frame-width), 94vw);
+  margin: 8px auto 0 auto;
+}
+
+
+
 /* Tabs row: flush to edges, own divider line, like kafu */
 .tabbar{
   display:flex; gap:0; padding:0; margin:0;
