@@ -1,0 +1,20 @@
+---
+layout: base.njk
+wrapMain: false
+---
+
+<div class="post-topbar" style="width:min(var(--frame-width),94vw);margin:16px auto 0;">
+  <a class="backbtn" href="{{ '/blog/' | url }}">← return to index</a>
+</div>
+
+<div class="post-wrap" style="width:min(var(--frame-width),94vw);margin:16px auto;">
+  <section class="box">
+    <div class="boxtitle black">
+      {{ title }} <span style="font-weight:400">| {{ date | fmtDate }}</span>
+    </div>
+    <div class="divide"></div>
+    <div class="post-body">
+      {{ content | safe }}
+    </div>
+  </section>
+</div>

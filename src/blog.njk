@@ -1,24 +1,29 @@
 ---
-layout: 'base.njk'
+layout: base.njk
 title: 9712 — Blog
 permalink: /blog/index.html
 bodyClass: "no-window-scroll blog-top"
+wrapMain: false
 ---
 
-<!-- Kafu-like blog layout -->
-  <div class="blog-wrap">
-    <aside class="blog-left">
-      <section class="box" style="width:260px;">
-        <div class="boxtitle">blog</div>
-        <div class="divide"></div>
-        <div class="boxbody">
-          <p><a class="backbtn" href="../index.html">← go back</a></p>
-          <p>James' interestdump, you might find something in here you like.</p>
-        </div>
-      </section>
-    </aside>
+{% from "post.njk" import PostCard %}
 
+<div class="blog-wrap">
+  <aside class="blog-left">
+    <section class="box" style="width:260px;">
+      <div class="boxtitle">blog</div>
+      <div class="divide"></div>
+      <div class="boxbody">
+        <p><a class="backbtn" href="{{ '/' | url }}">← go back</a></p>
+        <p>James' interestdump, you might find something in here you like.</p>
+      </div>
+    </section>
+  </aside>
 
+  <main class="blog-right">
+    {% for p in collections.posts | reverse %}
+      {% set sum = p.data.excerpt or (p.templateContent | striptags | truncate(240, true, '…')) %}
+      {{ PostCard(p.data.title, p.date, sum, p.url) }}
+    {% endfor %}
+  </main>
 </div>
-
-<script src="javascript/site.js"></script>

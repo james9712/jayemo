@@ -16,9 +16,27 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
+// Pretty date for Nunjucks (no extra deps needed)
+eleventyConfig.addFilter("fmtDate", (dateObj, locale = "en-AU", tz = "Australia/Sydney") => {
+  if (!dateObj) return "";
+  return new Intl.DateTimeFormat(locale, {
+    day: "2-digit",
+    month: "short", // Sep, Oct, …
+    year: "numeric",
+    timeZone: tz
+  }).format(dateObj);
+});
+
+
+
+
+
   eleventyConfig.addPassthroughCopy({ "src/style.css": "style.css" });
+  eleventyConfig.addWatchTarget("./src/styles/");
   eleventyConfig.addPassthroughCopy({ "src/javascript": "javascript" });
+  eleventyConfig.addWatchTarget("./src/javascript")
   eleventyConfig.addPassthroughCopy({ "src/images": "images" });
+  eleventyConfig.addWatchTarget("./src/images/");
   eleventyConfig.addPassthroughCopy({ "src/other files": "other files" });
 
   // Optional: live reload when these change
