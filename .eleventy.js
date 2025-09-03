@@ -57,6 +57,7 @@ eleventyConfig.addFilter("fmtDate", (dateObj, locale = "en-AU", tz = "Australia/
   eleventyConfig.addPassthroughCopy({ "src/images": "images" });
   eleventyConfig.addWatchTarget("./src/images/");
   eleventyConfig.addPassthroughCopy({ "src/other files": "other files" });
+  eleventyConfig.addPassthroughCopy({ "./src/assets/": "assets"});
 
   return {
     dir: { input: "src", includes: "_includes", output: "public" },

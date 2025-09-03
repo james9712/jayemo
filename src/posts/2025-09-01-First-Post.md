@@ -1,9 +1,9 @@
 ---
 title: "First post"
 date: 2025-09-01
-tags: ["posts"]                # REQUIRED for collections.posts
+tags: ["posts"]  
 layout: post_page.njk
-excerpt: "<p>Short teaser…</p>"
+description: first post
 ---
 Full content here…
 

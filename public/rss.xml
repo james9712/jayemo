@@ -26,7 +26,11 @@
       <updated>2025-09-01T00:00:00Z</updated>
       <id>http://localhost:8080/posts/2025-09-01-First-Post/</id>
       <content xml:lang="en-AU" type="html"><![CDATA[
-        <p>Short teaser…</p>
+        <p>Full content here…</p>
+<p>Your full post content here. You can write Markdown <strong>or</strong> HTML.</p>
+<p>This is my first blog post using <a href="https://www.11ty.dev/">Eleventy</a>!</p>
+<p><img src="../images/cat.jpg" alt="This cat is so cute, right?"></p>
+
       ]]></content>
     </entry>
   
