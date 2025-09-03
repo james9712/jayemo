@@ -1,0 +1,36 @@
+---json
+{
+  "permalink": "rss.xml",
+  "eleventyExcludeFromCollections": true,
+  "metadata": {
+    "title": "9712rnd",
+    "subtitle": "Posts from 9712rnd",
+    "url": "http://localhost:8080/",
+    "feedUrl": "http://localhost:8080/rss.xml",
+    "author": { "name": "9712" },
+    "language": "en-AU"
+  }
+}
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="{{ metadata.url }}">
+  <title>{{ metadata.title }}</title>
+  <subtitle>{{ metadata.subtitle }}</subtitle>
+  <link href="{{ permalink | absoluteUrl(metadata.url) }}" rel="self" />
+  <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <id>{{ metadata.url }}</id>
+  <author><name>{{ metadata.author.name }}</name></author>
+
+  {% for post in collections.posts | reverse %}
+    {% set absolutePostUrl = post.url | absoluteUrl(metadata.url) %}
+    <entry>
+      <title>{{ post.data.title }}</title>
+      <link href="{{ absolutePostUrl }}" />
+      <updated>{{ post.date | dateToRfc3339 }}</updated>
+      <id>{{ absolutePostUrl }}</id>
+      <content xml:lang="{{ metadata.language }}" type="html"><![CDATA[
+        {{ (post.data.excerpt or post.templateContent) | safe }}
+      ]]></content>
+    </entry>
+  {% endfor %}
+</feed>
