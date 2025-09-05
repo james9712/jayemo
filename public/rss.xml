@@ -3,7 +3,7 @@
   <title>9712rnd</title>
   <subtitle>Posts from 9712rnd</subtitle>
   <link href="http://localhost:8080/rss.xml" rel="self" />
-  <updated>2025-09-01T00:00:00Z</updated>
+  <updated>2025-09-01T00:00:00.000Z</updated>
   <id>http://localhost:8080/</id>
   <author><name>9712</name></author>
 
@@ -12,7 +12,7 @@
     <entry>
       <title>Hello World</title>
       <link href="http://localhost:8080/posts/2025-09-01-guh/" />
-      <updated>2025-09-01T00:00:00Z</updated>
+      <updated>2025-09-01T00:00:00.000Z</updated>
       <id>http://localhost:8080/posts/2025-09-01-guh/</id>
       <content xml:lang="en-AU" type="html"><![CDATA[
         <p>Short teaser…</p>
@@ -23,7 +23,7 @@
     <entry>
       <title>First post</title>
       <link href="http://localhost:8080/posts/2025-09-01-First-Post/" />
-      <updated>2025-09-01T00:00:00Z</updated>
+      <updated>2025-09-01T00:00:00.000Z</updated>
       <id>http://localhost:8080/posts/2025-09-01-First-Post/</id>
       <content xml:lang="en-AU" type="html"><![CDATA[
         <p>Full content here…</p>

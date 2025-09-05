@@ -1,1 +1,50 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9712 — Home</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/style.css"><script defer="defer" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script></head><body class="page-center-home"><div class="frame"></div><header class="header"><div class="header-top"><div class="header-title">jaye.mo</div><div class="header-image">header image placeholder</div></div><nav class="tabbar"><a class="tab" href="/blog/">blog</a> <a class="tab" href="/about/">about</a><div class="tab" data-link="index.html">home</div></nav></header><div class="frame"><main class="content"><section class="box"><div class="boxtitle">welcom!</div><div class="divide"></div><div class="boxbody"><p>this is my home</p><p>Here is where I will write about projects I do or other interesting things that come up in life.</p></div></section><section class="box"><div class="boxtitle">Notes</div><div class="divide"></div><div class="boxbody"><p>website is influenced by kafu.ovg, joosh, and yatagarasu</p></div></section></main><aside class="sidebar"><section class="box"><div class="boxtitle">links</div><div class="divide"></div><div class="boxbody"><ul class="side-links"><li><a href="https://www.youtube.com/@jayemo">Youtube</a></li><li><a href="blog.html">???</a></li><li><a href="about.html">???</a></li><li><a href="#">???</a></li></ul></div></section><section class="box"><div class="boxtitle">my local time (Sydney)</div><div class="divide"></div><div class="boxbody"><div class="clock"><span id="clockSydney">--:--:--</span></div></div></section><section class="box"><div class="boxtitle">theme</div><div class="divide"></div><div class="boxbody"><select id="themeSelect" class="theme-select"><option value="dark">Dark</option><option value="light">Light</option><option value="beige">Beige</option></select></div></section></aside></div><script defer="defer" src="/javascript/site.js"></script><script>window.netlifyIdentity&&window.netlifyIdentity.on("init",n=>{n||window.netlifyIdentity.on("login",()=>{document.location.href="/admin/"})})</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="page-center-home">
+  <div class="page-frame">
+    <div class="page-frame__inner">
+      
+<div class="layout-two">
+  <aside class="navbox">
+    <div class="title">home</div>
+    <p><a href="/blog/">blog</a></p>
+    <p><a href="/about/">about</a></p>
+  </aside>
+
+  <main class="mainbox">
+    <div class="title">welcom!</div>
+    <p>This is my home for self expression.</p>
+    <p>Here is where I'll post about interesting things I do or things about me.</p>
+
+    <hr class="divide">
+
+    <div class="title">Notes</div>
+    <p>This website is hosted on Netlify, blogging is powered by Nunjucks and 11ty</p>
+
+    <div class="title">Do your eyes hurt?</div>
+       <select id="themeSelect" class="theme-select">
+         <option value="light">Light</option>
+         <option value="dark">Dark</option>
+        </select> 
+
+  </main>
+</div>
+
+
+    </div>
+  </div>
+
+
+
+
+  <script defer src="/javascript/site.js"></script>
+</body>
+</html>

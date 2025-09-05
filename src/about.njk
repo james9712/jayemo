@@ -6,26 +6,28 @@ bodyClass: "about-compact no-window-scroll blog-top"
 wrapMain: false
 ---
 
-<div class="blog-wrap">
-  <aside class="blog-left">
-    <section class="box" style="width:260px;">
-      <div class="boxtitle">about</div>
-      <div class="divide"></div>
-      <div class="boxbody">
-        <p><a class="backbtn" href="{{ '/' | url }}">← go back</a></p>
-        <p>who am i?</p>
-      </div>
-    </section>
+<div class="layout-two">
+  <aside class="navbox">
+    <div class="title">about</div>
+    <p><a class="backbtn" href="{{ '/' | url }}">← go back</a></p>
   </aside>
 
-  <main class="blog-right">
-    <section class="box">
-      <div class="boxtitle">about</div>
-      <div class="divide"></div>
-      <div class="boxbody">
-        <p>wip.</p>
-        <p>wip.</p>
-      </div>
-    </section>
+  <main class="mainbox">
+    <div class="title">About me</div>
+    <p>James.</p>
+
+    <hr class="divide">
+
+    <div class="title">Important links</div>
+    <ul>
+      <li><a href="https://www.youtube.com/@jayemo" target="_blank" rel="noopener">Youtube</a></li>
+      <li><a href="mailto:j59318934@gmail.com" target="_blank" rel="noopener">Email me</a></li>
+      <li><a href="#" target="_blank" rel="noopener">???</a></li>
+    </ul>
+
+    <hr class="divide">
+
+    <div class="title">my local time (Sydney)</div>
+    <div class="clock"><span id="clockSydney">--:--:--</span></div>
   </main>
 </div>
