@@ -26,8 +26,6 @@
     });
   }
 
-
-
   // Tabs: navigate + mark active
   const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
   document.querySelectorAll('.tab').forEach(el=>{

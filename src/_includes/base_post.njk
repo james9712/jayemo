@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+
+  <link rel="stylesheet" href="{{ '/style.css' | url }}">
+  <script defer src="{{ '/javascript/site.js' | url }}"></script>
+</head>
+<body class="post-lock {{ bodyClass | default('') }}">
+  {# No .page-frame here (that big outer box is gone) #}
+  {% block content %}{% endblock %}
+</body>
+</html>

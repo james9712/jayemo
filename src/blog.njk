@@ -1,25 +1,112 @@
 ---
 layout: base.njk
-title: 9712 — Blog
+title: Blog
 permalink: /blog/index.html
-bodyClass: "no-window-scroll blog-top"
+bodyClass: "page-center_home"
 wrapMain: false
 ---
 
 {% from "post.njk" import PostCard %}
 
-<div class="layout-two">
-  <aside class="navbox">
-    <div class="title">blog</div>
-    <p><a class="backbtn" href="{{ '/' | url }}">← go back</a></p>
-  </aside>
+<div class="blog-full">
+  <!-- back button OUTSIDE the main content box -->
+  <a class="backbtn backbtn-outside" href="{{ '/' | url }}">← go back</a>
 
   <main class="mainbox">
-    <div class="title">posts</div>
+    <div class="tabbar" role="tablist" aria-label="post filters">
+      <button class="tab active" data-tab="tab-blog"       role="tab" aria-selected="true">blog</button>
+      <button class="tab"         data-tab="tab-portfolios" role="tab" aria-selected="false">projects</button>
+      <button class="tab"         data-tab="tab-gallery"    role="tab" aria-selected="false">gallery</button>
+    </div>
 
-    {% for p in collections.posts | reverse %}
-      {% set sum = p.data.excerpt or (p.templateContent | striptags | truncate(240, true, '…')) %}
-      {{ PostCard(p.data.title, p.date, sum, p.url) }}
-    {% endfor %}
+    <div class="toolbar">
+      <label for="sortSelect" style="font-weight:600;margin-right:6px;">Sort</label>
+      <select id="sortSelect" class="theme-select">
+        <option value="latest" selected>Latest</option>
+        <option value="oldest">Oldest</option>
+      </select>
+    </div>
+
+    <!-- BLOG (posts without tag 'portfolio') -->
+    <section id="tab-blog" class="tabpanel active" aria-labelledby="blog">
+      <div class="post-list">
+        {% for p in collections.posts | reverse %}
+          {% set tags = (p.data.tags or []) %}
+          {% if not ('portfolio' in tags) %}
+            <div class="postitem" data-iso="{{ p.date | dateToRfc3339 }}">
+              {{ PostCard(p.data.title, p.date, (p.data.excerpt or (p.templateContent | striptags | truncate(240, true, '…'))), p.url) }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- PORTFOLIOS (posts with tag 'portfolio') -->
+    <section id="tab-portfolios" class="tabpanel" aria-labelledby="portfolios">
+      <div class="title">projects</div>
+      <div class="post-list">
+        {% for p in collections.posts | reverse %}
+          {% set tags = (p.data.tags or []) %}
+          {% if 'portfolio' in tags %}
+            <div class="postitem" data-iso="{{ p.date | dateToRfc3339 }}">
+              {{ PostCard(p.data.title, p.date, (p.data.excerpt or (p.templateContent | striptags | truncate(240, true, '…'))), p.url) }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- GALLERY (images from /assets/media) -->
+<section id="tab-gallery" class="tabpanel" aria-labelledby="gallery">
+  <div class="title">gallery</div>
+  {% if collections.media | length %}
+    <div class="gallery-grid">
+      {% for src in collections.media %}
+        <a href="{{ src }}" target="_blank" rel="noopener">
+          <img src="{{ src }}" alt="">
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No images found in <code>/assets/media</code>.</p>
+  {% endif %}
+</section>
   </main>
 </div>
+
+<script>
+(function(){
+  // Tabs
+  const tabs   = document.querySelectorAll('.tabbar .tab');
+  const panels = document.querySelectorAll('.tabpanel');
+  function activate(id){
+    panels.forEach(p => p.classList.toggle('active', p.id === id));
+    tabs.forEach(t => {
+      const on = t.dataset.tab === id;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    sortActive(); // keep sort consistent when switching tabs
+  }
+  tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.tab)));
+
+  // Sort (Latest / Oldest) on the visible tab
+  const select = document.getElementById('sortSelect');
+  function sortPanel(panel, mode){
+    const list = panel.querySelector('.post-list');
+    if (!list) return;
+    const items = Array.from(list.querySelectorAll('.postitem'));
+    const cmp = mode === 'latest'
+      ? (a,b) => b.dataset.iso.localeCompare(a.dataset.iso)
+      : (a,b) => a.dataset.iso.localeCompare(b.dataset.iso);
+    items.sort(cmp).forEach(el => list.appendChild(el));
+  }
+  function activePanel(){ return document.querySelector('.tabpanel.active'); }
+  function sortActive(){ sortPanel(activePanel(), select.value); }
+  select.addEventListener('change', sortActive);
+
+  // initial
+  sortActive();
+})();
+</script>
+

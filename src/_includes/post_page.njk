@@ -1,20 +1,20 @@
----
-layout: base.njk
-wrapMain: false
----
+{% extends "base_post.njk" %}
 
-<div class="post-topbar" style="width:min(var(--frame-width),94vw);margin:16px auto 0;">
-  <a class="backbtn" href="{{ '/blog/' | url }}">← return to index</a>
-</div>
+{% block content %}
+  <div class="post-solo">
+    <!-- buttons ABOVE the content box -->
+    <div class="post-topbtns">
+      <a class="backbtn" href="{{ '/blog/' | url }}">← return to blog</a>
+      <a class="backbtn" href="{{ '/' | url }}">← home</a>
+    </div>
 
-<div class="post-wrap" style="width:min(var(--frame-width),94vw);margin:16px auto;">
-  <section class="box">
-    <div class="boxtitle black">
-      {{ title }} <span style="font-weight:400">| {{ date | fmtDate }}</span>
-    </div>
-    <div class="divide"></div>
-    <div class="post-body">
-      {{ content | safe }}
-    </div>
-  </section>
-</div>
+    <main class="mainbox post-single">
+      <h1 class="post-title">{{ title }}</h1>
+      <p class="post-meta">{{ date | fmtDate }}</p>
+
+      <div class="post-scroll">
+        {{ content | safe }}
+      </div>
+    </main>
+  </div>
+{% endblock %}

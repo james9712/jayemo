@@ -20,13 +20,13 @@
 
 /* Dark Mode */
 body[data-theme="dark"]{
-  --bg: #16181a;          /* canvas */
-  --ink: #e8eaed;         /* primary text */
-  --muted: #b1b6bf;       /* secondary text */
-  --link: #85a7ff;        /* links */
-  --panel: #1d2023;       /* cards / main boxes */
-  --panel-strong: #23272b;/* stronger panels / headers */
-  --border: #353b43;      /* borders */
+  --bg:            #141414;  
+  --ink:           #eaeaea;  
+  --muted:         #b6b6b6;  
+  --panel:         #1b1b1b; 
+  --panel-strong:  #222222;  
+  --border:        #3a3a3a;  
+  --link:          #9fb4ff;
 }
 
 
@@ -67,7 +67,7 @@ body::before {
 
 /* Grid filter per theme */
 body[data-theme="light"] { --grid-filter: none; }
-body[data-theme="dark"]  { --grid-filter: invert(1); }
+body[data-theme="dark"]  { --grid-filter: invert(1) brightness(0.55) opacity(0.45); }
 
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -82,13 +82,10 @@ a:hover { text-decoration: underline; }
   padding: var(--frame-padding);
 }
 
-.page-frame__inner {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: var(--frame-padding);
-}
-
 /* Page column box layout */
+
+/* move main box position */
+body.page-center_home .page-frame { margin-top: 80px !important; }
 
 .layout-two {
   width: 100%;
@@ -231,3 +228,264 @@ body.page-center .frame { margin-top: 0; margin-bottom: 0; }
 /* About page tweaks */
 body.about-compact .blog-wrap { height: auto; }
 body.about-compact .blog-right { height: auto; overflow: visible; }
+
+/* About Me / Blog positioning section */
+
+.about-wrap,
+.blog-full { position: relative; }
+
+:root { --backbtn-shift: 125px; }
+
+.about-wrap  .backbtn-outside,
+.blog-full   .backbtn-outside{
+  position: absolute;
+  top:  calc(-14px - var(--frame-padding));
+  left: calc(-14px - var(--backbtn-shift));
+  z-index: 3;
+}
+
+.mainbox > .backbtn-outside { position: static !important; top: auto !important; left: auto !important; }
+@media (max-width: 900px){
+  .about-wrap .backbtn-outside,
+  .blog-full  .backbtn-outside{ left: -14px; }
+}
+
+.toolbar{ display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:8px 0 12px; }
+.tabpanel{ display:none; }
+.tabpanel.active{ display:block; }
+.post-list .postitem + .postitem{ margin-top: 12px; }
+
+/* Gallery grid */
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+.gallery-grid a{
+  display:block;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 6px;
+}
+.gallery-grid img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.blog-full .mainbox { position: relative; }
+.blog-full .tabbar { border-top: none !important; }
+.blog-full .tabbar{
+
+  margin-top: -12px !important;
+  margin-left: -14px !important;
+  margin-right: -14px !important; 
+}
+
+.blog-full .tabbar .tab{
+  border-top: none !important;    
+}
+.blog-full .tabbar .tab:last-child{
+  border-right: 1px solid var(--border) !important;
+  box-shadow: inset -1px 0 0 var(--border);
+}
+.blog-full .toolbar #sortSelect{
+  width: auto !important;
+  min-width: 88px;
+  padding-inline: 8px;
+}
+
+/* ===== Single post page (flat, one big box) ===== */
+
+.post-wrap { width: min(var(--frame-width), 94vw); margin: 0 auto; }
+/* ===== Standalone post layout (no base.njk frame) ===== */
+
+/* Push the whole post block 150px down */
+.post-solo{
+  position: relative;
+  width: min(var(--frame-width), 94vw);
+  margin: 150px auto 0 auto;       /* <-- 150px down */
+}
+
+/* Buttons sit just above the post box */
+.post-backrow{
+  position: absolute;
+  top: -42px;                       /* tweak to taste */
+  left: 0;
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+.post-backrow .backbtn{
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+}
+
+/* Narrower, fixed-height post; its content gets a scrollbar */
+.post-single{
+  width: min(720px, 90%);           /* narrower than the page */
+  height: 64vh;                     /* fixed height; adjust if needed */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;                 /* keep the box fixed */
+}
+
+/* Title / date — flat (no divider) */
+.post-single .post-title{
+  font-weight: 800;
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.15;
+  margin: 2px 0 2px;
+}
+.post-single .post-meta{
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* Inner scroller */
+.post-single .post-scroll{
+  flex: 1 1 auto;
+  overflow: auto;
+  padding-right: 6px;               /* room for scrollbar */
+}
+
+/* Prevent the window from scrolling on this layout */
+body.no-window-scroll{ overflow: hidden; }
+
+/* ========= Post base (base_post.njk) ========= */
+
+/* the main frame must anchor absolute children */
+.page-frame { position: relative; }
+
+/* Buttons above the boxes, touching the top inner edge of the frame */
+.post-topbar{
+  position: absolute;
+  /* pull up by the frame padding so it hugs the frame’s top border */
+  top: calc(-1 * var(--frame-padding, 14px));
+  left: 0;
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+/* lock window scroll for posts (only the post content scrolls) */
+body.post-lock { overflow: hidden; }
+
+/* ========= Post content box ========= */
+
+/* narrow, fixed-height post; inner content scrolls */
+.post-single{
+  width: min(720px, 90%);       /* narrower than the frame */
+  margin: 150px auto 0;         /* move content ~150px down */
+  height: 64vh;                 /* fixed height; adjust if you like */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;             /* keep the box fixed */
+}
+
+/* title & date (flat – no divider) */
+.post-title{
+  font-weight: 800;
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.15;
+  margin: 2px 0 2px;
+}
+.post-meta{
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* the scroller inside the box */
+.post-scroll{
+  flex: 1 1 auto;
+  overflow: auto;               /* independent scrolling */
+  padding-right: 6px;           /* room for scrollbar */
+}
+/* ===== Single post pages (no big outer frame) ===== */
+
+/* lock window scroll so only the post scrolls (can remove if undesired) */
+body.post-lock { overflow: hidden; }
+
+/* container centered on the page */
+.post-solo{
+  width: min(var(--frame-width, 980px), 94vw);
+  margin: 80px auto 0;      /* push the whole thing down from the very top */
+}
+
+/* post box is narrower and its content scrolls */
+.post-single{
+  position: relative;
+  width: min(760px, 92%);
+  height: 64vh;             /* fixed height; content gets its own scrollbar */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;         /* keep the box fixed while .post-scroll scrolls */
+}
+
+/* tabs that sit on the top-left edge of the post box */
+.post-single .post-tabs{
+  position: absolute;
+  top: -12px;               /* pull into the mainbox padding so it “touches” */
+  left: -14px;
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+.post-single .post-tabs .tab{
+  display:inline-block;
+  padding: 2px 10px;
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* title/date with no divider */
+.post-title{
+  font-weight: 800;
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.15;
+  margin: 2px 0 2px;
+}
+.post-meta{
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* inner scroller */
+.post-scroll{
+  flex: 1 1 auto;
+  overflow: auto;
+  padding-right: 6px; /* room for scrollbar */
+}
+.post-solo{ position: relative; }            /* anchor absolute children */
+
+.post-topbtns{
+  position: absolute;
+  top: -40px; /* keep above the box; tweak if needed */
+  left: calc((100% - min(760px, 92%)) / 1.66 - 14px); /* align to .post-single left */
+  right: auto !important; 
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.post-topbtns .backbtn{
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  font-weight: 700;
+}

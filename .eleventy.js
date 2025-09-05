@@ -36,6 +36,48 @@ module.exports = function(eleventyConfig) {
     return items.reduce((a, b) => (a.date > b.date ? a : b)).date;
   });
 
+  const fs = require("fs");
+  const path = require("path");
+
+eleventyConfig.addCollection("media", () => {
+  const root = "src/assets/media";
+  const exts = new Set([".png",".jpg",".jpeg",".gif",".webp",".svg"]);
+  const out = [];
+
+  function walk(dir){
+    if (!fs.existsSync(dir)) return;
+    for (const name of fs.readdirSync(dir)) {
+      const p = path.join(dir, name);
+      const st = fs.statSync(p);
+      if (st.isDirectory()) walk(p);
+      else if (exts.has(path.extname(name).toLowerCase())) {
+        // turn "src/assets/media/monkey.png" -> "/assets/media/monkey.png"
+        out.push("/" + path.relative("src", p).replace(/\\/g, "/"));
+      }
+    }
+  }
+  walk(root);
+  return out;
+});
+
+const htmlmin = require("html-minifier-terser");
+	
+// in module.exports:
+eleventyConfig.addTransform("htmlmin", function (content) {
+    if ((this.page.outputPath || "").endsWith(".html")) {
+      let minified = htmlmin.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true,
+      });
+      return minified;
+    }
+    return content;
+  });
+
+
   /* ----------------------------
    * Eleventy directories & engines
    * ---------------------------- */

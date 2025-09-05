@@ -1,6 +1,6 @@
 ---
 title: "First post"
-date: 2025-09-01
+date: 2025-09-03
 tags: ["posts"]  
 layout: post_page.njk
 description: first post
